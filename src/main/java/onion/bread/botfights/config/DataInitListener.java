@@ -2,8 +2,10 @@ package onion.bread.botfights.config;
 
 import lombok.RequiredArgsConstructor;
 import onion.bread.botfights.dao.MatchDao;
+import onion.bread.botfights.dao.TeamDao;
 import onion.bread.botfights.model.Match;
 import onion.bread.botfights.model.MatchStatus;
+import onion.bread.botfights.model.Team;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -17,9 +19,20 @@ public class DataInitListener {
 
     private final MatchDao matchDao;
 
+    private final TeamDao teamDao;
+
     @EventListener(value = ContextRefreshedEvent.class)
     public void initData() {
         matchDao.saveAll(genMatches());
+        teamDao.saveAll(genTeams());
+    }
+
+    private Iterable<Team> genTeams() {
+        Team team1 = Team.builder().name("NAVI").players(Arrays.asList("hz", "kto", "tam")).logo("no logo").build();
+        Team team2 = Team.builder().name("EG").players(Arrays.asList("vse", "eshe", "hz")).logo("no logo").build();
+        Team team3 = Team.builder().name("NP").players(Arrays.asList("bot3", "bot2", "bot1")).logo("no logo").build();
+        Team team4 = Team.builder().name("VirtusPRO").players(Arrays.asList("jepa", "jopa", "joop")).logo("no logo").build();
+        return Arrays.asList(team1, team2, team3, team4);
     }
 
     private List<Match> genMatches() {
