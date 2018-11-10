@@ -16,19 +16,32 @@ public class MatchController {
     private final MatchDao matchDao;
 
     @GetMapping("/matches/completed")
-    public Iterable<Match> findCompleted(@RequestParam(required = false) String teamId,
-                            @RequestParam(required = false) String tournamentID,
+    public Iterable<Match> findCompleted(@RequestParam(required = false) String team,
+                            @RequestParam(required = false) String tournament,
                             @RequestParam(required = false) String timestamp) {
         MatchStatus status = MatchStatus.COMPLETED;
-        return getMatches(teamId, tournamentID, timestamp, status);
+        return getMatches(team, tournament, timestamp, status);
     }
 
     @GetMapping("/matches/upcoming")
-    public Iterable<Match> findUpcoming(@RequestParam(required = false) String teamId,
-                                @RequestParam(required = false) String tournamentID,
-                                @RequestParam(required = false) String timestamp) {
+    public Iterable<Match> findUpcoming(@RequestParam(required = false) String team,
+                                        @RequestParam(required = false) String tournament,
+                                        @RequestParam(required = false) String timestamp) {
         MatchStatus status = MatchStatus.UPCOMING;
-        return getMatches(teamId, tournamentID, timestamp, status);
+        return getMatches(team, tournament, timestamp, status);
+    }
+
+    @GetMapping("/matches")
+    public Iterable<Match> find() {
+        return matchDao.findAll();
+    }
+
+    @GetMapping("/matches/running")
+    public Iterable<Match> findRunning(@RequestParam(required = false) String team,
+                                        @RequestParam(required = false) String tournament,
+                                        @RequestParam(required = false) String timestamp) {
+        MatchStatus status = MatchStatus.RUNNING;
+        return getMatches(team, tournament, timestamp, status);
     }
 
     private Iterable<Match> getMatches(String teamId, String tournamentID, String timestamp, MatchStatus status) {

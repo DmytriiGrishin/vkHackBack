@@ -36,7 +36,7 @@ public class DataInitListener {
                 .team2("team5")
                 .team3("team7")
                 .team4("team8")
-                .status(MatchStatus.UPCOMING)
+                .status(MatchStatus.RUNNING)
                 .timestamp("1337")
                 .tournament("INT").build();
         Match match3 = Match.builder()

@@ -2,5 +2,6 @@ package onion.bread.botfights.model;
 
 public enum MatchStatus {
     UPCOMING,
-    COMPLETED
+    COMPLETED,
+    RUNNING
 }
