@@ -15,4 +15,5 @@ public class Team {
     public String name;
     public List<String> players;
     public String logo;
+    public String fullName;
 }
